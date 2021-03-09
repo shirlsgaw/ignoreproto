@@ -43,10 +43,21 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+final String OUTPUT_REPO_DIR = "$buildDir/wire-example"
+task fetchSquareRepo(type: Exec) {
+    commandLine '/usr/local/bin/git', 'clone', 'https://github.com/square/wire.git', OUTPUT_REPO_DIR
+}
+
+afterEvaluate {
+    tasks.getByName('generateDebugProtos').dependsOn fetchSquareRepo
+}
 
 wire {
     sourcePath {
-        srcJar 'src/main'
+        srcDir "src/main/proto"
+    }
+    sourcePath {
+        srcDir OUTPUT_REPO_DIR + "/sample/"
     }
     kotlin {
     }
