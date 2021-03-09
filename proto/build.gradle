@@ -46,8 +46,7 @@ dependencies {
 
 wire {
     sourcePath {
-        srcDir 'src/main'
-        include 'proto/**/*.proto'
+        srcJar 'src/main'
     }
     kotlin {
     }
